@@ -1,7 +1,40 @@
 @page "/"
+@using Luthetus.Tutorials.RazorLib.Persons
 
 <PageTitle>Index</PageTitle>
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+@if(_people is null)
+{
+	<div>Loading...</div>
+}
+else
+{
+	foreach (var person in _people)
+	{
+		<PersonDisplay Person="person"/>
+	}
+}
+
+@code {
+	[Inject]
+	private IPersonRepository PersonRepository { get; set; } = null!;
+	
+	private List<Person>? _people;
+	
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await Task.Delay(1_000).ConfigureAwait(false);
+			_people = await PersonRepository.GetPeopleAsync().ConfigureAwait(false);
+			
+			await InvokeAsync(StateHasChanged);
+		}
+		
+		await base.OnAfterRenderAsync(firstRender);
+	}
+}

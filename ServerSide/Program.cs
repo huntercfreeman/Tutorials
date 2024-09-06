@@ -1,10 +1,12 @@
-using Luthetus.Tutorials.RazorLib;
+using Luthetus.Tutorials.RazorLib.Installations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
+builder.Services.AddLuthetusTutorialsServices();
 
 var app = builder.Build();
 

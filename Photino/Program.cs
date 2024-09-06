@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Photino.Blazor;
-using Luthetus.Tutorials.RazorLib;
+using Luthetus.Tutorials.RazorLib.Installations;
 
 namespace Luthetus.Tutorials.Photino;
 
@@ -15,6 +15,7 @@ class Program
         var appBuilder = PhotinoBlazorAppBuilder.CreateDefault(args);
 
         appBuilder.Services.AddLogging();
+        appBuilder.Services.AddLuthetusTutorialsServices();
         appBuilder.RootComponents.Add<App>("app");
 
         var app = appBuilder.Build();
